@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wartle.Soft — Privacy-First Mobile Apps</title>
+    <title>Wartle.Soft — App & Web Development Studio</title>
     <meta name="description" content="Wartle.Soft builds privacy-first mobile apps for iOS and Android. Makers of Mobile Ledger and VerifEye.">
+    <meta name="theme-color" content="#0f2744">
+    <link rel="icon" href="images/wartle-logo.png" type="image/png" sizes="any">
+    <link rel="apple-touch-icon" href="images/wartle-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+        (function () {
+            try {
+                var key = 'wartle-theme';
+                var stored = localStorage.getItem(key);
+                var theme = (stored === 'light' || stored === 'dark')
+                    ? stored
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+                var m = document.querySelector('meta[name="theme-color"]');
+                if (m) m.setAttribute('content', theme === 'dark' ? '#0a1628' : '#ffffff');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
 </head>
 <body>
 
@@ -13,39 +35,154 @@
     <header class="header" id="header">
         <div class="header__inner">
             <a href="index.html" class="header__logo">
-                <span class="header__logo-mark">W</span>
-                <span class="header__logo-text">Wartle<span class="gold">.</span>Soft</span>
+                <img src="images/wartle-logo.png" alt="Wartle.Soft — App &amp; Web Developer" class="header__logo-img" width="220" height="72" decoding="async">
             </a>
             <nav class="header__nav" id="nav">
                 <a href="#apps">Apps</a>
+                <a href="#mascot">Mascot</a>
                 <a href="#about">About</a>
                 <a href="#contact" class="header__cta">Contact</a>
             </nav>
-            <button class="header__hamburger" id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="header__toolbar">
+                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle light or dark theme">
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button class="header__hamburger" id="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- Hero -->
     <section class="hero">
+        <div class="hero__waves" aria-hidden="true"></div>
         <div class="hero__grid-bg" aria-hidden="true"></div>
         <div class="hero__glow" aria-hidden="true"></div>
-        <div class="hero__content">
-            <div class="hero__tag">
-                <span class="hero__tag-dot"></span>
-                Independent App Studio
+        <div class="hero__layout">
+            <div class="hero__content">
+                <p class="hero__studio">App & Web Development Studio</p>
+                <h1>Apps That Respect<br><span class="accent">Your Privacy</span></h1>
+                <p class="hero__tagline"><span class="hl">Smart</span> solutions. <span class="hl">Beautiful</span> experiences. <span class="hl">Lasting</span> impact.</p>
+                <p class="hero__sub">Privacy-first tools for iOS and Android.<br>No accounts. No tracking. Your data stays yours.</p>
+                <div class="hero__actions">
+                    <a href="#apps" class="btn btn-primary">Explore Apps</a>
+                    <a href="#about" class="btn btn-ghost">Learn More</a>
+                </div>
             </div>
-            <h1>Apps That Respect<br><span class="gold">Your Privacy</span></h1>
-            <p class="hero__sub">Privacy-first tools for iOS and Android.<br>No accounts. No tracking. Your data stays yours.</p>
-            <div class="hero__actions">
-                <a href="#apps" class="btn btn-gold">Explore Apps</a>
-                <a href="#about" class="btn btn-ghost">Learn More</a>
+            <div class="hero__visual" aria-hidden="true">
+                <div class="hero__visual-glow"></div>
+                <div class="hero__visual-pixels">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+                <img src="images/wartle-turtle.png" alt="" class="hero__turtle" width="520" height="520" decoding="async" fetchpriority="high">
+            </div>
+        </div>
+        <div class="hero__content hero__features-wrap">
+            <div class="hero__features">
+                <div class="hero__feature">
+                    <span class="hero__feat-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                    </span>
+                    <span>Modern technology</span>
+                </div>
+                <div class="hero__feature">
+                    <span class="hero__feat-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                    </span>
+                    <span>Mobile-first approach</span>
+                </div>
+                <div class="hero__feature">
+                    <span class="hero__feat-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <span>Secure &amp; reliable</span>
+                </div>
+                <div class="hero__feature">
+                    <span class="hero__feat-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+                    </span>
+                    <span>Creative solutions</span>
+                </div>
             </div>
         </div>
         <div class="hero__fade" aria-hidden="true"></div>
+    </section>
+
+    <!-- Why a Turtle -->
+    <section class="section mascot" id="mascot">
+        <div class="container">
+            <div class="mascot__intro">
+                <div class="section-label">Our Mascot</div>
+                <h2 class="section-title">Why a Turtle for <span class="accent">Wartle.Soft</span>?</h2>
+                <p class="section-sub">The turtle reflects the values we bring to every app and web project — combining reliability, thoughtful development, and long-term impact.</p>
+            </div>
+            <div class="mascot-grid">
+                <article class="mascot-card reveal">
+                    <span class="mascot-card__icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <div>
+                        <h4>Reliable &amp; Trustworthy</h4>
+                        <p>Turtles are known for their strong shells — symbolizing stability, security, and dependable solutions.</p>
+                    </div>
+                </article>
+                <article class="mascot-card reveal">
+                    <span class="mascot-card__icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </span>
+                    <div>
+                        <h4>Developer Identity</h4>
+                        <p>The shell features the code symbol — making it clear we're tech-driven and proud of it.</p>
+                    </div>
+                </article>
+                <article class="mascot-card reveal">
+                    <span class="mascot-card__icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+                    </span>
+                    <div>
+                        <h4>Patient &amp; Persistent</h4>
+                        <p>Great apps take time and care. Turtles move steadily and don't cut corners — just like our development process.</p>
+                    </div>
+                </article>
+                <article class="mascot-card reveal">
+                    <span class="mascot-card__icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><path d="M18 13v3"/><path d="M16.5 14.5h3"/><path d="M18 19v3"/><path d="M16.5 20.5h3"/></svg>
+                    </span>
+                    <div>
+                        <h4>Modern &amp; Digital</h4>
+                        <p>Pixel accents add a digital flair, representing innovation, creativity, and forward-thinking craft.</p>
+                    </div>
+                </article>
+                <article class="mascot-card reveal">
+                    <span class="mascot-card__icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>
+                    </span>
+                    <div>
+                        <h4>Long-term Focus</h4>
+                        <p>Turtles live long and thrive over time — reflecting our commitment to building sustainable, future-ready products.</p>
+                    </div>
+                </article>
+                <article class="mascot-card reveal">
+                    <span class="mascot-card__icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </span>
+                    <div>
+                        <h4>Friendly &amp; Approachable</h4>
+                        <p>With a warm smile and vibrant colors, our turtle is welcoming, relatable, and easy to connect with.</p>
+                    </div>
+                </article>
+            </div>
+            <div class="mascot__tagline reveal">
+                <span class="mascot__tagline-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                </span>
+                <p><strong>In short:</strong> our turtle is the perfect blend of <span class="hl">trust</span>, <span class="hl">progress</span>, and <span class="hl">technology</span> — helping your ideas move forward, the smart and steady way.</p>
+            </div>
+        </div>
     </section>
 
     <!-- Apps -->
@@ -102,7 +239,7 @@
                 </div>
                 <div class="app-card__bottom">
                     <div class="app-card__badges">
-                        <a href="#" rel="noopener noreferrer">
+                        <a href="https://apps.apple.com/ph/app/verifeye-geotag-camera/id6761422889" target="_blank" rel="noopener noreferrer">
                             <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store" class="store-badge">
                         </a>
                         <a href="https://play.google.com/store/apps/details?id=app.wartle.verifeye" target="_blank" rel="noopener noreferrer">
@@ -119,22 +256,22 @@
     <section class="section about" id="about">
         <div class="container">
             <div class="section-label">Philosophy</div>
-            <h2 class="section-title">Built Different</h2>
-            <p class="section-sub">Every app follows a simple set of principles.</p>
+            <h2 class="section-title">Slow &amp; Steady, Built to Last</h2>
+            <p class="section-sub">Every app follows a simple set of principles — the smart and steady way.</p>
 
             <div class="values-grid">
                 <div class="value-card reveal">
                     <div class="value-card__num">01</div>
                     <div class="value-card__body">
                         <h4>Privacy by Default</h4>
-                        <p>Your data stays on your device. We don't run servers that store your information.</p>
+                        <p>Like a shell, your data stays protected — on your device, never on our servers.</p>
                     </div>
                 </div>
                 <div class="value-card reveal">
                     <div class="value-card__num">02</div>
                     <div class="value-card__body">
                         <h4>Crafted with Care</h4>
-                        <p>Every detail matters. We build apps we use ourselves, every day.</p>
+                        <p>Every detail matters. We build apps we use ourselves — patiently, and never rushed.</p>
                     </div>
                 </div>
                 <div class="value-card reveal">
@@ -162,7 +299,7 @@
                 <div class="section-label">Say Hello</div>
                 <h2>Get in Touch</h2>
                 <p>Have a question, need support, or want to collaborate?</p>
-                <a href="mailto:support@wartle.app" class="btn btn-gold">support@wartle.app</a>
+                <a href="mailto:support@wartle.app" class="btn btn-primary">support@wartle.app</a>
             </div>
         </div>
     </section>
@@ -171,8 +308,9 @@
     <footer class="footer">
         <div class="footer__inner">
             <div class="footer__left">
-                <span class="footer__mark">W</span>
-                <span>&copy; 2026 Wartle.Soft</span>
+                <img src="images/wartle-turtle.png" alt="" class="footer__mascot" width="40" height="40" decoding="async" aria-hidden="true">
+                <img src="images/wartle-logo.png" alt="" class="footer__logo" width="160" height="52" decoding="async" aria-hidden="true">
+                <span class="footer__copy">&copy; 2026 Wartle.Soft</span>
             </div>
             <div class="footer__links">
                 <a href="https://mobileledger.wartle.app" target="_blank">Mobile Ledger</a>
@@ -183,7 +321,6 @@
     </footer>
 
     <script>
-        // Hamburger
         const hamburger = document.getElementById('hamburger');
         const nav = document.getElementById('nav');
         hamburger.addEventListener('click', () => {
@@ -195,13 +332,24 @@
             nav.classList.remove('open');
         }));
 
-        // Header scroll
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 10);
         });
 
-        // Scroll reveal
+        const themeKey = 'wartle-theme';
+        const themeToggle = document.getElementById('themeToggle');
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            try { localStorage.setItem(themeKey, theme); } catch (e) {}
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', theme === 'dark' ? '#0a1628' : '#ffffff');
+        }
+        themeToggle.addEventListener('click', () => {
+            var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+        });
+
         const io = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if (e.isIntersecting) {
