@@ -205,12 +205,6 @@ html[data-theme='dark'] .header.scrolled {
     object-position: left center;
 }
 
-html[data-theme='dark'] .header__logo {
-    background: #ffffff;
-    padding: 6px 12px;
-    box-shadow: 0 2px 18px rgba(0, 0, 0, 0.25);
-}
-
 .theme-toggle {
     display: inline-flex;
     align-items: center;
@@ -1296,9 +1290,6 @@ html[data-theme='dark'] .footer__logo {
     .header__logo-img {
         height: 36px;
         max-width: min(200px, 58vw);
-    }
-    html[data-theme='dark'] .header__logo {
-        padding: 5px 10px;
     }
     .app-card__badges { flex-direction: column; align-items: flex-start; gap: 8px; }
     .store-badge { height: 36px; }
