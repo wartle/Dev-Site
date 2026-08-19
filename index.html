@@ -10,8 +10,9 @@
     <link rel="apple-touch-icon" href="images/wartle-turtle.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=3">
+    <link rel="stylesheet" href="css/styles.css?v=4">
     <script>
         (function () {
             try {
@@ -28,6 +29,23 @@
             }
         })();
     </script>
+    <script>
+        /* Motion gate: `.anim` is the ONLY thing that hides revealable content.
+           If motion.js never runs (no JS, blocked CDN, parse error), the
+           fail-safe below strips the class and the page renders in full. */
+        (function () {
+            var d = document.documentElement;
+            try {
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                d.classList.add('anim');
+                window.__wartleAnimFallback = window.setTimeout(function () {
+                    d.classList.remove('anim');
+                }, 2500);
+            } catch (e) {
+                d.classList.remove('anim');
+            }
+        })();
+    </script>
 </head>
 <body>
 
@@ -37,24 +55,26 @@
             <a href="index.html" class="header__logo">
                 <img src="images/wartle-turtle.png" alt="Wartle.Soft" class="header__logo-img" width="44" height="44" decoding="async">
             </a>
-            <nav class="header__nav" id="nav">
-                <a href="#apps">Apps</a>
-                <a href="#mascot">Mascot</a>
-                <a href="#about">About</a>
-                <a href="#contact" class="header__cta">Contact</a>
+            <nav class="header__nav" id="nav" aria-label="Primary">
+                <span class="header__nav-indicator" id="navIndicator" aria-hidden="true"></span>
+                <a href="#apps" data-nav-link>Apps</a>
+                <a href="#mascot" data-nav-link>Mascot</a>
+                <a href="#about" data-nav-link>About</a>
+                <a href="#contact" class="header__cta" data-magnetic>Contact</a>
             </nav>
             <div class="header__toolbar">
                 <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle light or dark theme">
                     <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
                     <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
-                <button class="header__hamburger" id="hamburger" aria-label="Menu">
+                <button class="header__hamburger" id="hamburger" type="button" aria-label="Menu" aria-controls="nav" aria-expanded="false">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
             </div>
         </div>
+        <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar" id="scrollProgress"></span></div>
     </header>
 
     <!-- Hero -->
@@ -64,12 +84,12 @@
         <div class="hero__glow" aria-hidden="true"></div>
         <div class="hero__layout">
             <div class="hero__content">
-                <p class="hero__studio">App & Web Development Studio</p>
-                <h1>Apps That Respect<br><span class="accent">Your Privacy</span></h1>
-                <p class="hero__tagline"><span class="hl">Smart</span> solutions. <span class="hl">Beautiful</span> experiences. <span class="hl">Lasting</span> impact.</p>
-                <p class="hero__sub">Privacy-first tools for iOS and Android.<br>No accounts. No tracking. Your data stays yours.</p>
-                <div class="hero__actions">
-                    <a href="#apps" class="btn btn-primary">Explore Apps</a>
+                <p class="hero__studio" data-hero="0.08">App & Web Development Studio</p>
+                <h1><span class="hero__line"><span>Apps That Respect</span></span><span class="hero__line"><span class="accent">Your Privacy</span></span></h1>
+                <p class="hero__tagline" data-hero="0.42"><span class="hl">Smart</span> solutions. <span class="hl">Beautiful</span> experiences. <span class="hl">Lasting</span> impact.</p>
+                <p class="hero__sub" data-hero="0.50">Privacy-first tools for iOS and Android.<br>No accounts. No tracking. Your data stays yours.</p>
+                <div class="hero__actions" data-hero="0.58">
+                    <a href="#apps" class="btn btn-primary" data-magnetic>Explore Apps</a>
                     <a href="#about" class="btn btn-ghost">Learn More</a>
                 </div>
             </div>
@@ -78,7 +98,9 @@
                 <div class="hero__visual-pixels">
                     <span></span><span></span><span></span><span></span>
                 </div>
-                <img src="images/wartle-turtle.png" alt="" class="hero__turtle" width="520" height="520" decoding="async" fetchpriority="high">
+                <div class="hero__turtle-wrap">
+                    <img src="images/wartle-turtle.png" alt="" class="hero__turtle" width="520" height="520" decoding="async" fetchpriority="high">
+                </div>
             </div>
         </div>
         <div class="hero__content hero__features-wrap">
@@ -115,12 +137,12 @@
     <!-- Why a Turtle -->
     <section class="section mascot" id="mascot">
         <div class="container">
-            <div class="mascot__intro">
-                <div class="section-label">Our Mascot</div>
-                <h2 class="section-title">Why a Turtle for <span class="accent">Wartle.Soft</span>?</h2>
-                <p class="section-sub">The turtle reflects the values we bring to every app and web project — combining reliability, thoughtful development, and long-term impact.</p>
+            <div class="mascot__intro" data-anim-group>
+                <div class="section-label" data-anim>Our Mascot</div>
+                <h2 class="section-title" data-anim="heading">Why a Turtle for <span class="accent">Wartle.Soft</span>?</h2>
+                <p class="section-sub" data-anim>The turtle reflects the values we bring to every app and web project — combining reliability, thoughtful development, and long-term impact.</p>
             </div>
-            <div class="codex-pet reveal">
+            <div class="codex-pet" data-anim="pop" data-spotlight>
                 <div class="codex-pet__portrait" aria-hidden="true">
                     <img src="images/wartle-turtle.png" alt="" width="240" height="240" loading="lazy" decoding="async">
                 </div>
@@ -131,6 +153,7 @@
                     <div class="codex-pet__actions">
                         <a
                             class="btn btn-primary"
+                            data-magnetic
                             href="codex://pets/install?name=Wartle&amp;imageUrl=https%3A%2F%2Fdeveloper.wartle.app%2Fimages%2Fwartle-turtle.png&amp;description=The%20smart%20and%20steady%20coding%20companion%20from%20Wartle.Soft."
                             aria-label="Add Wartle as a pet in Codex"
                         >Add Wartle to Codex <span aria-hidden="true">&rarr;</span></a>
@@ -138,8 +161,8 @@
                     </div>
                 </div>
             </div>
-            <div class="mascot-grid">
-                <article class="mascot-card reveal">
+            <div class="mascot-grid" data-anim-grid>
+                <article class="mascot-card" data-anim="pop">
                     <span class="mascot-card__icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
                     </span>
@@ -148,7 +171,7 @@
                         <p>Turtles are known for their strong shells — symbolizing stability, security, and dependable solutions.</p>
                     </div>
                 </article>
-                <article class="mascot-card reveal">
+                <article class="mascot-card" data-anim="pop">
                     <span class="mascot-card__icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                     </span>
@@ -157,7 +180,7 @@
                         <p>The shell features the code symbol — making it clear we're tech-driven and proud of it.</p>
                     </div>
                 </article>
-                <article class="mascot-card reveal">
+                <article class="mascot-card" data-anim="pop">
                     <span class="mascot-card__icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
                     </span>
@@ -166,7 +189,7 @@
                         <p>Great apps take time and care. Turtles move steadily and don't cut corners — just like our development process.</p>
                     </div>
                 </article>
-                <article class="mascot-card reveal">
+                <article class="mascot-card" data-anim="pop">
                     <span class="mascot-card__icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><path d="M18 13v3"/><path d="M16.5 14.5h3"/><path d="M18 19v3"/><path d="M16.5 20.5h3"/></svg>
                     </span>
@@ -175,7 +198,7 @@
                         <p>Pixel accents add a digital flair, representing innovation, creativity, and forward-thinking craft.</p>
                     </div>
                 </article>
-                <article class="mascot-card reveal">
+                <article class="mascot-card" data-anim="pop">
                     <span class="mascot-card__icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>
                     </span>
@@ -184,7 +207,7 @@
                         <p>Turtles live long and thrive over time — reflecting our commitment to building sustainable, future-ready products.</p>
                     </div>
                 </article>
-                <article class="mascot-card reveal">
+                <article class="mascot-card" data-anim="pop">
                     <span class="mascot-card__icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                     </span>
@@ -194,7 +217,7 @@
                     </div>
                 </article>
             </div>
-            <div class="mascot__tagline reveal">
+            <div class="mascot__tagline" data-anim>
                 <span class="mascot__tagline-icon" aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
                 </span>
@@ -206,12 +229,14 @@
     <!-- Apps -->
     <section class="section apps" id="apps">
         <div class="container">
-            <div class="section-label">Our Work</div>
-            <h2 class="section-title">Published Apps</h2>
-            <p class="section-sub">Available on the App Store and Google Play.</p>
+            <div class="section-head" data-anim-group>
+                <div class="section-label" data-anim>Our Work</div>
+                <h2 class="section-title" data-anim="heading">Published Apps</h2>
+                <p class="section-sub" data-anim>Available on the App Store and Google Play.</p>
+            </div>
 
             <!-- Lago (formerly Mobile Ledger) -->
-            <article class="app-card reveal">
+            <article class="app-card" data-anim data-spotlight>
                 <div class="app-card__top">
                     <img src="images/lago-icon.png" alt="Lago app icon" class="app-card__icon">
                     <div class="app-card__meta">
@@ -240,7 +265,7 @@
             </article>
 
             <!-- SiteStamp (formerly VerifEye) -->
-            <article class="app-card reveal">
+            <article class="app-card" data-anim data-spotlight>
                 <div class="app-card__top">
                     <img src="images/sitestamp-icon.png" alt="SiteStamp app icon" class="app-card__icon">
                     <div class="app-card__meta">
@@ -270,7 +295,7 @@
             </article>
 
             <!-- PunctO -->
-            <article class="app-card reveal">
+            <article class="app-card" data-anim data-spotlight>
                 <div class="app-card__top">
                     <img src="images/puncto-icon.png" alt="PunctO app icon" class="app-card__icon">
                     <div class="app-card__meta">
@@ -297,113 +322,41 @@
                     <a href="https://puncto.wartle.app" target="_blank" class="btn btn-outline btn-sm">Visit Site &rarr;</a>
                 </div>
             </article>
-
-            <!-- MeFarm -->
-            <article class="app-card reveal">
-                <div class="app-card__top">
-                    <img src="images/mefarm-icon.png" alt="MeFarm app icon" class="app-card__icon">
-                    <div class="app-card__meta">
-                        <h3>MeFarm</h3>
-                        <span class="app-card__tagline">Smart Farming, Simplified</span>
-                    </div>
-                </div>
-                <p class="app-card__desc">A modern companion for growers and small-scale farmers — track crops, plan harvests, and manage your operation with ease. Built with the same privacy-first principles you expect from Wartle.Soft.</p>
-                <div class="app-card__pills">
-                    <span class="pill">Crop Tracking</span>
-                    <span class="pill">Harvest Planning</span>
-                    <span class="pill">Privacy First</span>
-                    <span class="pill">Coming Soon</span>
-                </div>
-                <div class="app-card__bottom">
-                    <div class="app-card__badges">
-                        <span class="coming-soon-badge" aria-label="Coming soon to the App Store">
-                            <svg class="coming-soon-badge__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-                            <span class="coming-soon-badge__text">
-                                <span class="coming-soon-badge__small">Coming Soon to</span>
-                                <span class="coming-soon-badge__name">App Store</span>
-                            </span>
-                        </span>
-                        <span class="coming-soon-badge" aria-label="Coming soon to Google Play">
-                            <svg class="coming-soon-badge__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M3.6 1.86c-.36.39-.57.99-.57 1.78v16.72c0 .79.21 1.39.57 1.78l.06.05L13 12.11v-.22L3.66 1.81l-.06.05zM16.81 15.43l-3.12-3.12v-.22l3.12-3.12.07.04 3.69 2.1c1.06.6 1.06 1.58 0 2.18l-3.69 2.1-.07.04zM13.69 12.31l3.18 3.18-10.5 5.97c-.35.2-.68.18-.94 0l8.26-9.15zM13.69 11.69 5.43.55c.26-.19.59-.21.94-.01l10.5 5.97-3.18 3.18z"/></svg>
-                            <span class="coming-soon-badge__text">
-                                <span class="coming-soon-badge__small">Coming Soon to</span>
-                                <span class="coming-soon-badge__name">Google Play</span>
-                            </span>
-                        </span>
-                    </div>
-                    <a href="https://mefarm.wartle.app" target="_blank" class="btn btn-outline btn-sm">Visit Site &rarr;</a>
-                </div>
-            </article>
-
-            <!-- BizTek -->
-            <article class="app-card reveal">
-                <div class="app-card__top">
-                    <img src="images/tech-ops-icon.png" alt="BizTek app icon" class="app-card__icon">
-                    <div class="app-card__meta">
-                        <h3>BizTek</h3>
-                        <span class="app-card__tagline">Business Tech Operations, Simplified</span>
-                    </div>
-                </div>
-                <p class="app-card__desc">Streamline your day-to-day operations — track assets, manage workflows, and keep your business running smoothly from one place. Built with the same privacy-first principles you expect from Wartle.Soft.</p>
-                <div class="app-card__pills">
-                    <span class="pill">Operations</span>
-                    <span class="pill">Workflow Management</span>
-                    <span class="pill">Privacy First</span>
-                    <span class="pill">Coming Soon</span>
-                </div>
-                <div class="app-card__bottom">
-                    <div class="app-card__badges">
-                        <span class="coming-soon-badge" aria-label="Coming soon to the App Store">
-                            <svg class="coming-soon-badge__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-                            <span class="coming-soon-badge__text">
-                                <span class="coming-soon-badge__small">Coming Soon to</span>
-                                <span class="coming-soon-badge__name">App Store</span>
-                            </span>
-                        </span>
-                        <span class="coming-soon-badge" aria-label="Coming soon to Google Play">
-                            <svg class="coming-soon-badge__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M3.6 1.86c-.36.39-.57.99-.57 1.78v16.72c0 .79.21 1.39.57 1.78l.06.05L13 12.11v-.22L3.66 1.81l-.06.05zM16.81 15.43l-3.12-3.12v-.22l3.12-3.12.07.04 3.69 2.1c1.06.6 1.06 1.58 0 2.18l-3.69 2.1-.07.04zM13.69 12.31l3.18 3.18-10.5 5.97c-.35.2-.68.18-.94 0l8.26-9.15zM13.69 11.69 5.43.55c.26-.19.59-.21.94-.01l10.5 5.97-3.18 3.18z"/></svg>
-                            <span class="coming-soon-badge__text">
-                                <span class="coming-soon-badge__small">Coming Soon to</span>
-                                <span class="coming-soon-badge__name">Google Play</span>
-                            </span>
-                        </span>
-                    </div>
-                    <a href="https://biztek.wartle.app" target="_blank" class="btn btn-outline btn-sm">Visit Site &rarr;</a>
-                </div>
-            </article>
         </div>
     </section>
 
     <!-- About -->
     <section class="section about" id="about">
         <div class="container">
-            <div class="section-label">Philosophy</div>
-            <h2 class="section-title">Slow &amp; Steady, Built to Last</h2>
-            <p class="section-sub">Every app follows a simple set of principles — the smart and steady way.</p>
+            <div class="section-head" data-anim-group>
+                <div class="section-label" data-anim>Philosophy</div>
+                <h2 class="section-title" data-anim="heading">Slow &amp; Steady, Built to Last</h2>
+                <p class="section-sub" data-anim>Every app follows a simple set of principles — the smart and steady way.</p>
+            </div>
 
-            <div class="values-grid">
-                <div class="value-card reveal">
+            <div class="values-grid" data-anim-grid>
+                <div class="value-card" data-anim="pop">
                     <div class="value-card__num">01</div>
                     <div class="value-card__body">
                         <h4>Privacy by Default</h4>
                         <p>Like a shell, your data stays protected — on your device, never on our servers.</p>
                     </div>
                 </div>
-                <div class="value-card reveal">
+                <div class="value-card" data-anim="pop">
                     <div class="value-card__num">02</div>
                     <div class="value-card__body">
                         <h4>Crafted with Care</h4>
                         <p>Every detail matters. We build apps we use ourselves — patiently, and never rushed.</p>
                     </div>
                 </div>
-                <div class="value-card reveal">
+                <div class="value-card" data-anim="pop">
                     <div class="value-card__num">03</div>
                     <div class="value-card__body">
                         <h4>Cross-Platform</h4>
                         <p>Available on iOS and Android so you can use the platform you prefer.</p>
                     </div>
                 </div>
-                <div class="value-card reveal">
+                <div class="value-card" data-anim="pop">
                     <div class="value-card__num">04</div>
                     <div class="value-card__body">
                         <h4>No Accounts Required</h4>
@@ -417,11 +370,11 @@
     <!-- Contact -->
     <section class="section contact" id="contact">
         <div class="container">
-            <div class="contact__box reveal">
+            <div class="contact__box" data-anim="pop" data-spotlight>
                 <div class="section-label">Say Hello</div>
                 <h2>Get in Touch</h2>
                 <p>Have a question, need support, or want to collaborate?</p>
-                <a href="mailto:support@wartle.app" class="btn btn-primary">support@wartle.app</a>
+                <a href="mailto:support@wartle.app" class="btn btn-primary" data-magnetic>support@wartle.app</a>
             </div>
         </div>
     </section>
@@ -442,46 +395,7 @@
         </div>
     </footer>
 
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const nav = document.getElementById('nav');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            nav.classList.toggle('open');
-        });
-        nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            nav.classList.remove('open');
-        }));
-
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 10);
-        });
-
-        const themeKey = 'wartle-theme';
-        const themeToggle = document.getElementById('themeToggle');
-        function applyTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            try { localStorage.setItem(themeKey, theme); } catch (e) {}
-            var meta = document.querySelector('meta[name="theme-color"]');
-            if (meta) meta.setAttribute('content', theme === 'dark' ? '#0a1628' : '#ffffff');
-        }
-        themeToggle.addEventListener('click', () => {
-            var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            applyTheme(next);
-        });
-
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    io.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/motion@13.1.0/dist/motion.js" defer></script>
+    <script src="js/motion.js?v=1" defer></script>
 </body>
 </html>
